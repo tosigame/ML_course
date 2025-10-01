@@ -1,5 +1,8 @@
 import numpy as np
 
+def compute_mae_loss(y,tx,w):
+    return np.mean(np.abs(y-tx@w))
+
 
 def compute_subgradient_mae(y, tx, w):
     """Compute a subgradient of the MAE at w.
@@ -16,4 +19,6 @@ def compute_subgradient_mae(y, tx, w):
     # INSERT YOUR CODE HERE
     # TODO: compute subgradient gradient vector for MAE
     # ***************************************************
-    raise NotImplementedError
+    e = y -tx@w
+    subgrad = -(tx.T @ np.sign(e))/len(y)
+    return subgrad

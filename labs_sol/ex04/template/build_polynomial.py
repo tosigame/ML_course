@@ -24,4 +24,6 @@ def build_poly(x, degree):
     # this function should return the matrix formed
     # by applying the polynomial basis to the input data
     # ***************************************************
-    raise NotImplementedError
+    exp_range = np.arange(0,degree+1)
+    return x.reshape(-1,1) ** exp_range
+

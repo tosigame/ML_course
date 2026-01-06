@@ -5,18 +5,20 @@ import matplotlib.pyplot as plt
 
 from helpers import de_standardize, standardize
 
+
 def get_facecolors(cs):
     """gets facecolors from the QuadContourSet object"""
 
-    if hasattr(cs, 'get_facecolor'):
+    if hasattr(cs, "get_facecolor"):
         return cs.get_facecolor()
-    elif hasattr(cs, 'collections'):
+    elif hasattr(cs, "collections"):
         return [pc.get_facecolor()[0] for pc in cs.collections]
     else:
         raise AttributeError(
             "The provided contour set object does not have a "
             "'.get_facecolor()' or '.collections' attribute. "
         )
+
 
 def visualization(y, x, mean_x, std_x, w, save_name, is_LR=False):
     """visualize the raw data as well as the classification result."""
@@ -62,9 +64,7 @@ def visualization(y, x, mean_x, std_x, w, save_name, is_LR=False):
         prediction = x_temp.dot(w) > 0.5
     prediction = prediction.reshape((weight.shape[0], height.shape[0]))
     cs = ax2.contourf(hx, hy, prediction, 1)
-    proxy = [
-        plt.Rectangle((0, 0), 1, 1, fc=fc) for fc in get_facecolors(cs)
-    ]
+    proxy = [plt.Rectangle((0, 0), 1, 1, fc=fc) for fc in get_facecolors(cs)]
     ax2.legend(proxy, ["prediction male", "prediction female"])
 
     ax2.scatter(x[females, 0], x[females, 1], marker="*", color=[0.06, 0.06, 1], s=20)
